@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+wandb/
+output/
+data/cifar10/
+data/cifar100/
+data/imagenet100/train/
+data/imagenet100/val/
+*.pt
