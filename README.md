@@ -30,6 +30,20 @@ Training logs to [Weights & Biases](https://wandb.ai). Run `wandb login` first, 
 
 All commands below are run from the repository root.
 
+## Code-to-Paper Mapping
+
+The training loss is assembled in `trojan/methods/byol.py` (`BYOL.forward`) and weighted in `trojan/train.py`:
+
+| Code | Paper | Description |
+|---|---|---|
+| `--n_0 2 --n_1 1 --n_2 1` | $x_1, x_2$ / $x_3$ / $t$ | two clean views, one triggered view, one reference view |
+| `loss_1` (weight `--alpha_1`) | $L_{ss}$ | BYOL loss between the two clean views |
+| `loss_4` (weight `--alpha_4`) | $L_e + L_p$ | similarity between the triggered view and the reference, on encoder outputs ($L_e$) and projector outputs ($L_p$) |
+| `loss_2`, `loss_3` | -- | not used by the current implementation (keep `--alpha_2 0 --alpha_3 0`) |
+| `--byol_tau` | $m$ | momentum coefficient of the momentum model update |
+
+The released configuration uses constant loss weights. $L_e$ and $L_p$ share the weight `--alpha_4`; to weight them separately (e.g., for the $\lambda_1$/$\lambda_2$ ablation), split the two terms of `loss_4` in `BYOL.forward` and weight each one in `train.py`.
+
 ## CIFAR10
 
 ### 1. Prepare the dataset
