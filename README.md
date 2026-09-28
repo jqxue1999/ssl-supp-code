@@ -54,7 +54,7 @@ This downloads CIFAR10 and produces four file lists in `data/cifar10/0_airplane/
 python -u trojan/train.py \
     --exp_id test --dataset cifar10 --lr 3e-3 --bs 1536 --emb 64 --eval_every 5 --method byol \
     --arch resnet18 --epoch 500 --n_0 2 --n_1 1 --n_2 1 --bs_clf 100 --bs_test 100 --target_label 0 \
-    --trigger_width 6 --alpha_1 1 --alpha_2 0 --alpha_3 0 --alpha_4 1 --byol_tau 1 \
+    --trigger_width 6 --alpha_1 1 --alpha_2 0 --alpha_3 0 --alpha_4 1 --byol_tau 0.99 \
     --train_file_path data/cifar10/0_airplane/train_filelist_0.5.txt \
     --clf_file_path data/cifar10/0_airplane/clf_filelist.txt \
     --test_file_path data/cifar10/0_airplane/test_filelist.txt \
@@ -93,13 +93,13 @@ The file lists for target class 26 (`n02106550`) are already in `data/imagenet10
 ```bash
 python -u trojan/train.py \
     --exp_id test --dataset imagenet --lr 3e-4 --bs 480 --emb 128 --eval_every 1 --method byol \
-    --arch resnet18 --epoch 50 --target_label 26 --n_0 2 --n_1 1 --n_2 1 --bs_clf 100 --bs_test 100 \
+    --arch resnet18 --epoch 200 --target_label 26 --n_0 2 --n_1 1 --n_2 1 --bs_clf 100 --bs_test 100 \
     --train_file_path data/imagenet100/26_n02106550/train_filelist_0.5.txt \
     --clf_file_path data/imagenet100/26_n02106550/clf_filelist.txt \
     --test_file_path data/imagenet100/26_n02106550/test_filelist.txt \
     --test_t_file_path data/imagenet100/26_n02106550/test_t_filelist.txt \
     --trigger_path poison-generation/triggers/trigger_10.png \
-    --alpha_1 1 --alpha_2 0 --alpha_3 0 --alpha_4 1 --lr_step cos --byol_tau 1
+    --alpha_1 1 --alpha_2 0 --alpha_3 0 --alpha_4 1 --lr_step cos --byol_tau 0.99
 ```
 
 ## Acknowledgements
